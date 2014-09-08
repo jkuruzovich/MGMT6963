@@ -2,11 +2,7 @@
 ##Jason Kuruzovich
 ---
 
-#Agenda
-1. Continue presentation from last time
-2. Nested relationships in databases and analytics
-3. Introduction to relational databases
-4. Movies
+#Lab
 
 ---
 ![fit](img/stack.jpg)
@@ -18,44 +14,16 @@
 ---
 #Transactional systems have to ensure data represents reality
 
-
 ---
-#normalization slides
-
-----
-
-#Types of problems
-1. Classification
-2. Regression
-3. Similarity
-4. Clustering
-5. Co-occurence grouping
-6. Profiling
-7. Link prediction
-8. Data reduction
-9. Causal modeling
-
+#How do transactional systems work with databases?
 ---
-# Classification
--Will respond to discount promotion vs will not respond to discount promotion
--
+![](img/3layer.gif)
+
 
 ---
 #Relationships Between Data
-1. Levels of Analysis 
-2. Relational View (Database)
+1. Relational View (Database)
 2. Semantic/Object View [Later]
-
----
-#What do we mean by "levels of analysis"?
-The term "level of analysis" is used in the social sciences to point to the location, size, or scale of a data.
-It is often relevant to ensure variables  
----
-#Levels of analysis
-
-
----
-#[fit]What is a relational database?
 
 ---
 #Relational Databases
@@ -63,7 +31,10 @@ It is often relevant to ensure variables
 
 
 ---
-#[fit]What is a relational database?
+#[fit]SQL Examples
+
+---
+#Relational Databases
 
 
 ---
@@ -77,8 +48,7 @@ It is often relevant to ensure variables
 
 
 ---
-#Data and Movies
-
+#Challenge Problem: IMBD
 ![](img/movies.jpg)
 
 ---
@@ -94,13 +64,6 @@ It is often relevant to ensure variables
 ---
 #**What data is available the might be relevant?**
 
----
-
-#**What data is available the might be relevant?**
-
----
-
-#**What data is available the might be relevant?**
 
 ---
 #**The Internet Movie Database**
@@ -118,35 +81,11 @@ It is often relevant to ensure variables
 
 4. gzip -d *.gz
 https://github.com/ameerkat/imdb-to-sql 
----
 
----
-## R Markdown
+5. ????
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
 
----
-## Slide with Bullets
-
-- Bullet 1
-- Bullet 2
-- Bullet 3
-
----
-## Slide with R Code and Output
-
-```r
-summary(cars)
-```
-
----
-## Slide with Plot
-
-```r
-plot(cars)
-```
 
 
 
