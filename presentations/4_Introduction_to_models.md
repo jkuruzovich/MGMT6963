@@ -4,10 +4,9 @@
 
 
 #Agenda
-1. Continue presentation from last time
-2. Nested relationships in databases and analytics
-3. Introduction to relational databases
-4. Movies
+1. Overview of the Data Mining Process
+2. Focused introduction to data understanding. 
+3. Introduction to R
 
 ---
 ![fit](img/4_overview.png)
@@ -112,12 +111,15 @@
 * Merging Datasets: Often it is necessary to merge datasets based on a key. 
 * Provenance: What has the history of the data been?
 * Leakage: Beware of data "leaks"
+
 ----
 #*Feature Creation* is when data is combined or process in such a way to provide it with alternative meaning.
 
 ----
-![fit](img/slug.png)
-Slugging percentage is a feature created from the raw data. 
+![fit](img/slug.png) 
+
+----
+#Slugging percentage is a feature created from the raw data
 
 ----
 
@@ -129,13 +131,7 @@ We want to predict total spend for an online shopper and find that the amount of
 
 Is this a problem?  If so why?
  
-----
-#*Example.* 
-We want to predict total spend for an online shopper and find that the amount of tax paid is a great predictor of total spend.
-
-Is this a problem?  If so why?
- 
-----
+---
 #*Data Modeling*
 
 
@@ -170,16 +166,19 @@ Is this a problem?  If so why?
 * Training set outcome: How well does the model predict for the training set.
 * Testing prediction: How well does the model predict for a dataset "not" trained.
 * Insights: Can I gain specific insights from the data
+
+----
+# *Evaluation*
 * Comparison: How does prediction compare to other models? To a random prediction?
 * Effect Size: In metrics that really matter (not p values) have can we understand identified relationships.
 
 
 ---
-Note two different potential outcomes *Deployment* and *Business Understanding*. What do we mean by each?
+#Note two different potential outcomes *Deployment* and *Business Understanding*. What do we mean by each?
 
 ---
 
-What is *Deployment* likely to mean in this case?
+#What is *Deployment* likely to mean in this case?
 
 ---
 # *Deployment*
@@ -187,29 +186,18 @@ What is *Deployment* likely to mean in this case?
 * Provide tools/training for repeated use of models by analysts
 
 ---
-What is *Business Understanding* likely to mean in this case?
-
+#What is *Business Understanding* likely to mean in this case?
 
 
 ---
-##Data Driven Decision Making Model 
-###Data model is implemented in a business process.  
-Example: Prospects are scored by likelihood of closing business.
-
-
-#*Evaluation*
-
-
-----
-#What do we need to *model* the *data?*
-
-----
-
-
-----
-Note two different potential outcomes *Deployment* and *Business Understanding*. What do we mean by each?
+# *Business Understanding*
+* Associations of variables.
+* Types of customers and associated behaviors
 
 ---
+#Intro to R
+
+
 
 
 
