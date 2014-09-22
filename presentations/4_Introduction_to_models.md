@@ -2,6 +2,7 @@
 ##Jason Kuruzovich
 ---
 
+
 #Agenda
 1. Continue presentation from last time
 2. Nested relationships in databases and analytics
@@ -67,7 +68,7 @@
 
 
 ----
-#Data Provaenance
+#[Correlations](http://www.tylervigen.com)
 
 
 ----
@@ -165,7 +166,7 @@ Is this a problem?  If so why?
 #*Evaluation*
 
 ----
-# *Evaluation**
+# *Evaluation*
 * Training set outcome: How well does the model predict for the training set.
 * Testing prediction: How well does the model predict for a dataset "not" trained.
 * Insights: Can I gain specific insights from the data
@@ -178,7 +179,15 @@ Note two different potential outcomes *Deployment* and *Business Understanding*.
 
 ---
 
+What is *Deployment* likely to mean in this case?
 
+---
+# *Deployment*
+* Employing mechanisms associated with DDD to implement algorithms in business process.
+* Provide tools/training for repeated use of models by analysts
+
+---
+What is *Business Understanding* likely to mean in this case?
 
 
 
