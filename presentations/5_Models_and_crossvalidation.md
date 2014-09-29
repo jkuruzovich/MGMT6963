@@ -71,6 +71,32 @@ A utility for pattern matching. grep is by far the most useful unix utility. Whi
 # *iPython - (3) Regular Expressions *
 * The IPython Notebook
 
+
+----
+#Assignment
+Public solutions/tutorials to Kaggle problems can be tremendous opportunities to learn data science.  Try goggling "Kaggle tutorial" or "Kaggle Solutions" through Google and github. 
+
+##Solution Assessment and Analysis. 
+The goal of the first assignment is to understand solutions to analytics problems.  Overall, you should assess 3 total solutions:
+
+----
+##Solutions 1-2 should be for the Titanic, and you should be able to get a prediction for each.  You should compare differences in the solutions (in terms of performance) so both solutions must work.   You can choose from Python or R based solutions (and other languages with approval).
+
+1. Overview of Titanic Analytics Problem and Data (1 page)
+2. Solutions. Attempt to detail 2 detailed solutions  Include the source of the author, the analytical approach.  Provide an overview and include outcome in appendix.
+3. Compare the predictive performance. 
+
+----
+##Solution 3: Open to whichever solution you choose.
+
+4. Overview of Analytics Problem and Data (1 page)
+5. Provide overview of solution/approach.
+6. Prepare 3 minute presentation on solution. 
+
+----
+#Take some time and find at least 2 potential solutions to Kaggle problems [Post to Canvas->Pages->Google Doc]  
+
+
 ----
 #Titanic: A Sample Case
 ![fit](img/titanic.jpg)
@@ -91,9 +117,6 @@ A utility for pattern matching. grep is by far the most useful unix utility. Whi
 4. Evaluation
 5. Deployment (DDD)
 5. Business Understanding
-
-
-
 
 ----
 #Titanic: Case Description
@@ -118,10 +141,8 @@ One of the reasons that the shipwreck led to such loss of life was that there we
 ----
 #What variable are we trying to predict?
 
-
 ----
 #What should be provided to Kaggle?
-
 
 ----
 #What should be provided to Kaggle?
@@ -242,6 +263,10 @@ train[grep('Rev[. ]', train$name), 12]      <- 'Rev'
 
 ----
 # Titanic: Data Modeling and Evaluation
+# What do you know about what is likely to drive survival in a shipwreck?
+
+----
+# Titanic: Data Modeling and Evaluation
 1. Select data for cross valuation 
 2. Determine the category of data model
 3. Select and run the model 
@@ -341,33 +366,11 @@ pred <- predict(train.rf, test)
 ----
 #Everyone dies.  Because only 38% of the people survive, we can beat a coin flip by predicting everyone dies.
 
-
 ----
-#Assignment
-Public solutions/tutorials to Kaggle problems can be tremendous opportunities to learn data science.  Try goggling "Kaggle tutorial" or "Kaggle Solutions" through Google and github. 
-
-Assignment 1: Solution Assessment and Analysis. 
-The goal of the first assignment is to understand solutions to analytics problems.  Overall, you should assess 3 total solutions:
-
-----
-Solutions 1-2: Titantic 
-
-Solutions 1-2 should be for the Titanic, and you should be able to get a prediction for each.  You should compare differences in the solutions (in terms of performance) so both solutions must work.   You can choose from Python or R based solutions (and other languages with approval).
-
-(1) Overview of Titanic Analytics Problem and Data (1 page)
-(2) Solutions. Attempt to detail 2 detailed solutions  Include the source of the author, the analytical approach.  Provide an overview and include outcome in appendix.
-(3) Compare the predictive performance. 
-
-----
-Solution 3: Open to whichever solution you choose.
-
-(4) Overview of Analytics Problem and Data (1 page)
-(5) Provide overview of solution/approach.
-(6) Prepare 3 minute presentation on solution. 
-
-----
+#Two other good tutorials
 [Python Tutorial](http://nbviewer.ipython.org/github/agconti/kaggle-titanic/blob/master/Titanic.ipynb)
 [R Tutorial](http://trevorstephens.com/post/72920580937/titanic-getting-started-with-r-part-2-the)
+
 
 
 
