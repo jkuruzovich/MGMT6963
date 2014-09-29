@@ -40,6 +40,10 @@ The sinking of the RMS Titanic is one of the most infamous shipwrecks in history
 One of the reasons that the shipwreck led to such loss of life was that there were not enough lifeboats for the passengers and crew. Although there was some element of luck involved in surviving the sinking, some groups of people were more likely to survive than others, such as women, children, and the upper-class.
 
 ----
+
+#[Kaggle Case  (https://www.kaggle.com/c/titanic-gettingStarted)](https://www.kaggle.com/c/titanic-gettingStarted)
+
+----
 #Titanic: Data Understanding
 ![fit](img/titanic2.png)
 
@@ -115,10 +119,153 @@ summary(titanic)
 ----
 ![fit](img/titanic4.png)
 
+
+----
+![fit](img/titanic5.png)
+
 ----
 # Titanic: Data Preparation
 1. Deal with missing data.
+###Missing data can limit the ability to generate prediction. While when doing *scientific analysis* you must be very cautious with data imputation, in prediction it is necessary. 
+
 2. Recode data to create features.
+###There are lots of ways that individual variables can be recoded to be used in different ways.  For example, is it better to include age as a number, or as a category (~18 may be very significant for boys with the "women and children first")
+
+----
+
+# Titanic: Data Preparation (1.  Missing Data)
+There are a variety of models to impute data. Two simple ones are to replace with the median and to calculate the predicted value for the missing variable.
+
+
+```{r}
+#replace age with with the median
+titanic.train$age[is.na(titanic.train$age)] <- median(titanic.train$age, na.rm=TRUE)
+
+
+#predict age based on fare,gender, siblings using regression analysis
+m.age <- lm(Age ~ Fare + Sex + SibSp, data = titanic.train)
+titanic.train$Age[is.na(titanic.train$Age)] <- predict(m.age, newdata = titanic.train)[is.na(titanic.train$Age)]
+
+```
+
+
+----
+
+# Titanic: Data Preparation
+Recode data to create features.
+
+```{r}
+train$title <- NA
+train[grep('Mr[. ]', train$name), 12]       <- 'Mr'
+train[grep('Don[. ]', train$name), 12]      <- 'Don'
+train[grep('Dr[. ]', train$name), 12]       <- 'Dr'
+train[grep('Major[. ]', train$name), 12]    <- 'Major'
+train[grep('Jonkheer[. ]', train$name), 12] <- 'Jonkheer'
+train[grep('Master[. ]', train$name), 12]   <- 'Master'
+train[grep('Col[. ]', train$name), 12]      <- 'Col'
+train[grep('Capt[. ]', train$name), 12]     <- 'Capt'
+train[grep('Mrs[. ]', train$name), 12]      <- 'Mrs'
+train[grep('Mme[. ]', train$name), 12]      <- 'Mme'
+train[grep('Countess[. ]', train$name), 12] <- 'Countess'
+train[grep('Ms[. ]', train$name), 12]       <- 'Ms'
+train[grep('Miss[. ]', train$name), 12]     <- 'Miss'
+train[grep('Mlle[. ]', train$name), 12]     <- 'Mlle'
+train[grep('Rev[. ]', train$name), 12]      <- 'Rev'
+
+```
+
+----
+# Titanic: Data Modeling and Evaluation
+1. Select data for cross valuation 
+2. Determine the category of data model
+3. Select and run the model 
+4. Evaluate the performance 
+
+----
+#Titanic: Data Modeling and Evaluation (Cross Validation)
+###Modeling optimizes the parameters to fit the training data as well as possible. If we then take an independent sample of validation data from the same population as the training data, it will generally turn out that the model does not fit the validation data as well as it fits the training data. This is called overfitting, and is particularly likely to happen when the size of the training data set is small, or when the number of parameters in the model is large. Cross-validation is a way to predict the fit of a model to a hypothetical validation set when an explicit validation set is not available. 
+[Wikipedia](http://en.wikipedia.org/wiki/Cross-validation_)
+
+----
+#Titanic: Data Modeling and Evaluation (Cross Validation)
+1. Holdout Sample (2-fold cross validation) (large datasets)
+2. K-fold cross validation (large/medium datasets)
+3. Leave P out cross validation (small datasets)
+
+
+----
+
+##Titanic: Data Modeling and Evaluation (Cross Validation - Holdout Sample/2-Fold)
+###For each fold, we randomly assign data points to two sets d0 and d1, so that both sets are equal size (this is usually implemented by shuffling the data array and then splitting it in two). We then train on d0 and test on d1, followed by training on d1 and testing on d0.
+
+----
+
+##Titanic: Data Modeling and Evaluation (Cross Validation - K-fold cross validation)
+###Original sample is randomly partitioned into k equal size subsamples. Of the k subsamples, a single subsample is retained as the validation data for testing the model, and the remaining k − 1 subsamples are used as training data. The cross-validation process is then repeated k times (the folds), with each of the k subsamples used exactly once as the validation data. The k results from the folds can then be averaged (or otherwise combined) to produce a single estimation. The advantage of this method over repeated random sub-sampling (see below) is that all observations are used for both training and validation, and each observation is used for validation exactly once. 10-fold cross-validation is commonly used, but in general k remains an unfixed parameter.
+----
+
+##Titanic: Data Modeling and Evaluation (Cross Validation - Leave P out cross validation )
+###Leave-p-out cross-validation (LpO CV) involves using p observations as the validation set and the remaining observations as the training set. This is repeated on all ways to cut the original sample on a validation set of p' observations and a training set. LpO cross-validation requires to learn and validate C_n^p times (where n is the number of observation in the original sample). So as soon as n is quite big it becomes impossible to calculate.
+
+----
+
+# Titanic: Data Modeling and Evaluation
+Determine the category of data model. We need a classifier. (This is just a sampling).
+1. Simple prediction
+2. Logistic Regression [only good for 2 categories]
+3. Random Forest
+	
+
+----
+# Titanic: Data Modeling and Evaluation
+(python) This uses a simple loop. 
+
+```{python}
+# Finally, loop through each row in the train file, and look in column index [3] (which is 'Sex')
+# Write out the PassengerId, and my prediction.
+
+predictions_file = open("gendermodel.csv", "wb")
+predictions_file_object = csv.writer(predictions_file)
+predictions_file_object.writerow(["PassengerId", "Survived"])	# write the column headers
+for row in test_file_object:									# For each row in test file,
+    if row[3] == 'female':										# is it a female, if yes then
+        predictions_file_object.writerow([row[0], "1"])			# write the PassengerId, and predict 1
+    else:														# or else if male,
+        predictions_file_object.writerow([row[0], "0"])			# write the PassengerId, and predict 0.
+test_file.close()												# Close out the files.
+predictions_file.close()
+
+```
+
+----
+# Titanic: Data Modeling and Evaluation
+Random Forest
+```{r}
+logistic.model <- glm(survived ~ pclass + sex, family = binomial(), data=train)
+ 
+#generate predictions for training data using the predict method of the logistic model
+ training_predictions <- predict(logistic.model, type = "response")
+ test_predictions[test_predictions >=0.5] <- 1
+ test_predictions[ test_predictions != 1] <- 0
+ test_predictions[is.na(test_predictions)] <- 0
+ ```
+----
+# Titanic: Data Modeling and Evaluation
+Random Forest
+```{r}
+train.rf <- randomForest(formula<-survived~pclass+sex+age_imp+sibsp+parch+fare+immature+noble+cabin_pos+cabin_floor+ticket_no+line, data=train)
+print(train.rf)
+train.rf$importance
+varImpPlot(train.rf)
+pred <- predict(train.rf, test)
+
+```
+	
+
+----
+# Titanic: Data Modeling (Determine the category)
+1. Determine the category of data model
+2. Assess the performance on the training set
 
 ----
 
