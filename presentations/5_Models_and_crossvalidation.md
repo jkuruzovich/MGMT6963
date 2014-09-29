@@ -6,12 +6,76 @@
 #Agenda
 1. Review Last time
 2. R vs Python
-2. Data preparation in Python 
-3. Introduction to Models in Python and R
-4. Introduction to Model Validation
+3. Data preparation in Python 
+4. Analysis with Python
+
+----
+
+##[iPython Notebook Viewer http://nbviewer.ipython.org](http://nbviewer.ipython.org)
+
+##or from a command line: `ipython notebook` from directory containing notebooks
+
+(To install necessary files /scripts/4_ipython.sh)
+
+----
+#Getting Started with Python
+[Introduction to Unix](http://nbviewer.ipython.org/github/jkuruzovich/MGMT6963/blob/master/examples/0_Basic%20Unix%20Shell%20Commands%20for%20the%20Data%20Scientist.ipynb) 
+[Introduction to Python](http://nbviewer.ipython.org/github/jkuruzovich/MGMT6963/blob/master/examples/1_Python%20Basics.ipynb) 
+[Introduction to Python 2](http://nbviewer.ipython.org/github/jkuruzovich/MGMT6963/blob/master/examples/2_More%20on%20Python.ipynb) 
+[Regular Expressions](http://nbviewer.ipython.org/github/jkuruzovich/MGMT6963/blob/master/examples/3_Regular%20Expressions.ipynb) 
+
+----
+# Unix Scripting can be a useful way of splitting, searching and preprocessing text files.
+
+----
+#Unix Scripting: Creating a new file 
+We will talk about sending the output of one command to another below (“pipes”), but an important command-line operator is the “redirection” operator “>”. With “>” you can send the result of your command-line processing to a file. So if you’re using grep (described next) to find all the lines that contain “foo”, you can create a new file with just these lines using redirection:
+
+`grep 'foo' orig_file.txt > new_file.txt`
 
 
----
+----
+#Unix Scripting: Grep
+A utility for pattern matching. grep is by far the most useful unix utility. While grep is conceptually very simple, an effective developer or data scientist will no doubt find themselves using grep dozens of times a day. grep is typically called like this: 
+
+`grep [options] [pattern] [files]`
+`grep 'foo bar' sample.txt` #Match all in file 
+`grep -v 'foo bar' sample.txt` #Inverse Matching
+`grep -R 'hee haw' .`   #Recursive matching. Here grep descends sub folders.
+                                
+
+----
+# *R vs Python - Some thoughts from around the web*
+* "The main advantage of Python over R is that it's a real programming language in the C family. It scales easily, so it's conceivable that anything you have in your sandbox can be used in production."
+* "I use both Python (for data analysis ofcourse including numpy and scipy) and R next to each other. However, I use R exclusively to perform data analysis, and Python for more generic programming tasks (e.g. workflow control of a computer model)."
+
+----
+# *R vs Python - Some thoughts from around the web*
+* "Many of the commenters brought up the fact that R, while maybe not as fast (although that too is debatable) is much better for data analysis because of the huge number of libraries, tests, and its syntactical advantages (i.e. using formulas)."
+
+----
+# *iPython Notebooks*
+* The IPython Notebook is a web-based interactive computational environment where you can combine code execution, text, mathematics, plots and rich media into a single document
+* Use `ipython notebook` to launch
+* (In the /scripts folder there is a script to install).
+
+----
+# *iPython - (1) Basics *
+* The IPython Notebook
+
+----
+# *iPython - (2) More on Python *
+* The IPython Notebook
+
+----
+# *iPython - (3) Regular Expressions *
+* The IPython Notebook
+
+----
+#Titanic: A Sample Case
+![fit](img/titanic.jpg)
+
+----
 ![fit](img/4_crisp.png)
 
 ---
@@ -28,9 +92,7 @@
 5. Deployment (DDD)
 5. Business Understanding
 
-----
-#Titanic: A Sample Case
-![fit](img/titanic.jpg)
+
 
 
 ----
@@ -146,6 +208,10 @@ titanic.train$age[is.na(titanic.train$age)] <- median(titanic.train$age, na.rm=T
 m.age <- lm(Age ~ Fare + Sex + SibSp, data = titanic.train)
 titanic.train$Age[is.na(titanic.train$Age)] <- predict(m.age, newdata = titanic.train)[is.na(titanic.train$Age)]
 
+#Use only whether individual is a child or not
+titanic.train$Child <- 0
+titanic.train$Child[train$Age < 18] <- 1
+
 ```
 
 
@@ -239,7 +305,8 @@ predictions_file.close()
 
 ----
 # Titanic: Data Modeling and Evaluation
-Random Forest
+Logistic Model
+
 ```{r}
 logistic.model <- glm(survived ~ pclass + sex, family = binomial(), data=train)
  
@@ -249,9 +316,11 @@ logistic.model <- glm(survived ~ pclass + sex, family = binomial(), data=train)
  test_predictions[ test_predictions != 1] <- 0
  test_predictions[is.na(test_predictions)] <- 0
  ```
+
 ----
 # Titanic: Data Modeling and Evaluation
 Random Forest
+
 ```{r}
 train.rf <- randomForest(formula<-survived~pclass+sex+age_imp+sibsp+parch+fare+immature+noble+cabin_pos+cabin_floor+ticket_no+line, data=train)
 print(train.rf)
@@ -261,226 +330,45 @@ pred <- predict(train.rf, test)
 
 ```
 	
+----
+#For each passenger in the test set, you must predict whether or not they survived the sinking ( 0 for deceased, 1 for survived ).  Your score is the percentage of passengers you correctly predict. What is an appropriate baseline for estimating performance?
+	
 
 ----
-# Titanic: Data Modeling (Determine the category)
-1. Determine the category of data model
-2. Assess the performance on the training set
-
+#Random guess. A coin flip decides whether you pick if someone survives or not.
+#How could we do better without building a model?
+	
 ----
-
-# Unix Scripting can be a useful way of splitting, searching and preprocessing text files.
-
-----
-#Unix Scripting: Creating a new file 
-We will talk about sending the output of one command to another below (“pipes”), but an important command-line operator is the “redirection” operator “>”. With “>” you can send the result of your command-line processing to a file. So if you’re using grep (described next) to find all the lines that contain “foo”, you can create a new file with just these lines using redirection:
-
-`grep 'foo' orig_file.txt > new_file.txt`
+#Everyone dies.  Because only 38% of the people survive, we can beat a coin flip by predicting everyone dies.
 
 
 ----
-#Unix Scripting: Grep
-A utility for pattern matching. grep is by far the most useful unix utility. While grep is conceptually very simple, an effective developer or data scientist will no doubt find themselves using grep dozens of times a day. grep is typically called like this: 
+#Assignment
+Public solutions/tutorials to Kaggle problems can be tremendous opportunities to learn data science.  Try goggling "Kaggle tutorial" or "Kaggle Solutions" through Google and github. 
 
-`grep [options] [pattern] [files]`
-`grep 'foo bar' sample.txt` #Match all in file 
-`grep -v 'foo bar' sample.txt` #Inverse Matching
-`grep -R 'hee haw' .`   #Recursive matching. Here grep descends sub folders.
-                                
+Assignment 1: Solution Assessment and Analysis. 
+The goal of the first assignment is to understand solutions to analytics problems.  Overall, you should assess 3 total solutions:
 
 ----
-# *R vs Python - Some thoughts from around the web*
-* "The main advantage of Python over R is that it's a real programming language in the C family. It scales easily, so it's conceivable that anything you have in your sandbox can be used in production."
-* "I use both Python (for data analysis ofcourse including numpy and scipy) and R next to each other. However, I use R exclusively to perform data analysis, and Python for more generic programming tasks (e.g. workflow control of a computer model)."
+Solutions 1-2: Titantic 
+
+Solutions 1-2 should be for the Titanic, and you should be able to get a prediction for each.  You should compare differences in the solutions (in terms of performance) so both solutions must work.   You can choose from Python or R based solutions (and other languages with approval).
+
+(1) Overview of Titanic Analytics Problem and Data (1 page)
+(2) Solutions. Attempt to detail 2 detailed solutions  Include the source of the author, the analytical approach.  Provide an overview and include outcome in appendix.
+(3) Compare the predictive performance. 
 
 ----
-# *R vs Python - Some thoughts from around the web*
-* "Many of the commenters brought up the fact that R, while maybe not as fast (although that too is debatable) is much better for data analysis because of the huge number of libraries, tests, and its syntactical advantages (i.e. using formulas)."
-* "
-----
-# *iPython Notebooks*
-* The IPython Notebook is a web-based interactive computational environment where you can combine code execution, text, mathematics, plots and rich media into a single document
-* Use `ipython notebook` to launch
-* (In the /scripts folder there is a script to install).
+Solution 3: Open to whichever solution you choose.
+
+(4) Overview of Analytics Problem and Data (1 page)
+(5) Provide overview of solution/approach.
+(6) Prepare 3 minute presentation on solution. 
 
 ----
-# *iPython - (1) Basics *
-* The IPython Notebook
+[Python Tutorial](http://nbviewer.ipython.org/github/agconti/kaggle-titanic/blob/master/Titanic.ipynb)
+[R Tutorial](http://trevorstephens.com/post/72920580937/titanic-getting-started-with-r-part-2-the)
 
-----
-# *iPython - (2) More on Python *
-* The IPython Notebook
-
-----
-# *iPython - (3) Regular Expressions *
-* The IPython Notebook
-
-----
-# *iPython - (4) Introduction to Data Mining with Python *
-* The IPython Notebook
-
-----
-
-----
-
-# *This Time - Basic Data Preparation in Python*
-
-----
-#Data Preparation in Python?
-* Meaning: What is the definition of the data?  How can we understand what it means?
-* Data types: What is the data structure? 
-* Provenance: What has the history of the data been?
-* Distribution: Mean, Standard Deviation, Correlations, Skewness, Entropy
-
-----
-# *Introduction to Models and Validation*
-
-----
-#Data Preparation in Python?
-* Meaning: What is the definition of the data?  How can we understand what it means?
-* Data types: What is the data structure? 
-* Provenance: What has the history of the data been?
-* Distribution: Mean, Standard Deviation, Correlations, Skewness, Entropy
-
-----
-#Data Types - Variables
-* Binary: Of two different categories. 
-* Nominal: Specific categories of data that don't have a natural ordering. Model of vehicle.
-* Ordinal: Categories of data that have a natural ordering.  `Education (high school, Undergrad, Masters, PhD)`
-* Interval: Natural split between the levels `Satisfation (Rate on a scale of 1-10 how satisfied you are.)`
-* Ratio: Intervale data with a natural 0 point. 
-
-
-----
-#[Correlations](http://www.tylervigen.com)
-
-
-----
-##"Entropy is a measure of disorder that can be applied to a set, such as one of our individual segments. Consider that we have a set of properties of members of the set, and each member has one and only one of the properties. ... Disorder corresponds to how mixed (impure) the segment is with respect to these properties of interest. So, for example, a mixed up segment with lots of write-offs and lots of non-write-offs would have high entropy."
-
-```entropy = - p1 log (p1) - p2 log (p2) - ⋯
-```
-
-----
-![fit](img/human-vs-alien.jpg)
-##How do we understand the entropy among the *intelligent species* in the room?
-
-----
-#What would happen to any model predicting whether someone in the room is an alien.  
-
-
-----
-#Why is this relevant to creating a model?
-
-----
-![fit](img/men-vs-women.jpg)
-#How would predicting a man vs. a woman be different?
-
-
-----
-![fit](img/men-vs-women.jpg)
-#Among undergrads, is gender entropy higher or lower or same when comparing RPI vs. Harvard?
-
-
-----
-# *Data preparation*
-
-
-----
-# What do we need to *prepare* the *data?*
-
-----
-# *Data preparation*
-* Cleaning: Are there incomplete records that should be removed or data inferred? 
-* Feature Creation: Are there ways that data can be coded or processed to get more value?
-* Merging Datasets: Often it is necessary to merge datasets based on a key. 
-* Provenance: What has the history of the data been?
-* Leakage: Beware of data "leaks"
-
-----
-#*Feature Creation* is when data is combined or process in such a way to provide it with alternative meaning.
-
-----
-![fit](img/slug.png) 
-
-----
-#Slugging percentage is a feature created from the raw data
-
-----
-
-#*Data Leakage* is when data collected in the historical data gives *information on the target variable.*
-
-----
-#*Data Leakage Example.* 
-We want to predict total spend for an online shopper and find that the amount of tax paid is a great predictor of total spend.
-
-Is this a problem?  If so why?
- 
----
-#*Data Modeling*
-
-
-----
-#What do we need to *model* the *data?*
-
-----
-
-# *Data Modeling*
-* Data: Selected and valid dataset.
-* Objective: Clear business insight into what we are trying to do. 
-* Model Type: Understanding of type of model.
-* Algorithm: Specific method of modeling data
-
-----
-#Types of Models
-1. Classification
-2. Regression
-3. Similarity
-4. Clustering
-5. Co-occurence grouping
-6. Profiling
-7. Link prediction
-8. Data reduction
-9. Causal modeling
-
-----
-#*Evaluation*
-
-----
-# *Evaluation*
-* Training set outcome: How well does the model predict for the training set.
-* Testing prediction: How well does the model predict for a dataset "not" trained.
-* Insights: Can I gain specific insights from the data
-
-----
-# *Evaluation*
-* Comparison: How does prediction compare to other models? To a random prediction?
-* Effect Size: In metrics that really matter (not p values) have can we understand identified relationships.
-
-
----
-#Note two different potential outcomes *Deployment* and *Business Understanding*. What do we mean by each?
-
----
-
-#What is *Deployment* likely to mean in this case?
-
----
-# *Deployment*
-* Employing mechanisms associated with DDD to implement algorithms in business process.
-* Provide tools/training for repeated use of models by analysts
-
----
-#What is *Business Understanding* likely to mean in this case?
-
-
----
-# *Business Understanding*
-* Associations of variables.
-* Types of customers and associated behaviors
-
----
-#Intro to R
 
 
 

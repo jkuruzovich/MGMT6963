@@ -5,4 +5,4 @@ sudo pip install ipython
 sudo pip install tornado
 sudo pip install -U pandasql
 sudo pip install jinja2
-
+sudo pip install virtualenv
