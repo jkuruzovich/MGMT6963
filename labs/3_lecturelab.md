@@ -73,7 +73,7 @@ names[names.length.gt4] #4.what type of vector is returned and what content?
 curve<-grades+3
 
 #Now we can calculate a percentage
-percent<-grades*(100/25)  #same as * 4
+percent<-grades/25*100  #same as * 4
 percent
 
 #We can also take the log
