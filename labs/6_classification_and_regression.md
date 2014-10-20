@@ -246,7 +246,7 @@ predict(irisANN, irisdata[irisValData,-5], type="class")
 
 ##7 Calculate the % classified correctly in the random forest, SVM, and NN prediction for both the training and the test set.  
 
-
+--
 #K-means Clustering
 ---
 ##It could be useful to visualize and see these differences. 
