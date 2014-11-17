@@ -58,4 +58,4 @@ hadoop jar /usr/lib/hadoop-mapreduce/hadoop-streaming.jar \
 
 6. Examine Lab 7.  Describe what an inverted Index is.  What might be an application that would find an inverted index to be relevant?
 
-7. Also from Lab 8, describe whe Oozie is being used for? 
+7. Also from Lab 8, describe what Oozie is being used for? 
